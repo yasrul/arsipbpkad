@@ -43,11 +43,16 @@ AppAsset::register($this);
     } else {
         
         $menuItems[] = ['label'=>'Referensi', 'items'=>[
+            ['label'=>'Info DPA', 'url'=>['dpa-ref/index']],
             ['label'=>'Kode Masalah', 'url'=>['kode-masalah/index']],
             ['label'=>'Unit Pemilik', 'url'=>['unit-pemilik/index']],
-            ['label'=>'Unit Pengolah', 'url'=>['unit-pengolah/index']],
-            ['label'=>'Info DPA', 'url'=>['dpa-ref/index']]
+            ['label'=>'Unit Pengolah', 'url'=>['unit-pengolah/index']],       
+            ['label'=>'Lokasi Ruang', 'url'=>['lok-ruang/index']],
+            ['label'=>'Lokasi Rak', 'url'=>['lok-rak/index']]
         ]];
+        
+        $menuItems[] = ['label'=>'Arsip', 'url'=>['arsip-inaktif/index']];
+        
         if (PermissionHelpers::requireMinimumRole('AdminSystem')) {
             $menuItems[] = ['label'=>'Admin', 'items'=> [
                 ['label'=>'User','url'=>['user/index']],

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "lok_ruang".
@@ -51,8 +52,13 @@ class LokRuang extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLokRaks()
+    public function getRaks()
     {
         return $this->hasMany(LokRak::className(), ['kd_ruang' => 'kode']);
+    }
+    
+    public static function getListRuang() {
+        $droptions = LokRuang::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'kode', 'nama_ruang');
     }
 }

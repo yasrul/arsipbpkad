@@ -43,7 +43,7 @@ class LokRak extends \yii\db\ActiveRecord
     {
         return [
             'kode' => 'Kode',
-            'kd_ruang' => 'Kd Ruang',
+            'kd_ruang' => 'Ruang',
             'nama_rak' => 'Nama Rak',
         ];
     }
@@ -51,7 +51,7 @@ class LokRak extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getKdRuang()
+    public function getRuang()
     {
         return $this->hasOne(LokRuang::className(), ['kode' => 'kd_ruang']);
     }

@@ -6,7 +6,6 @@ use Yii;
 use yii\web\IdentityInterface;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
-use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 use app\models\Role;
 use app\models\Status;
@@ -61,7 +60,6 @@ class User extends ActiveRecord implements IdentityInterface
             [['status_id'], 'in', 'range' => array_keys($this->getStatusList())],
             ['role_id', 'default', 'value' => 1],
             [['role_id'], 'in', 'range' => array_keys($this->getRoleList())],
-            ['dept_id', 'in', 'range'=>  array_keys(Departments::deptList(1))],
             ['username','filter', 'filter' => 'trim'],
             ['username', 'required'],
             ['username', 'unique'],
@@ -84,7 +82,6 @@ class User extends ActiveRecord implements IdentityInterface
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
-            'dept_id' => 'SKPD',
             'role_id' => 'Role',
             'status_id' => 'Status',
             'created_at' => 'Created At',
