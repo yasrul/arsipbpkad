@@ -34,33 +34,39 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    
+    $menuItems[] = ['label' => 'Home', 'url' => ['/site/index']];
+    
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'SignUp', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    } else {
+        
+        $menuItems[] = ['label'=>'Referensi', 'items'=>[
+            ['label'=>'Kode Masalah', 'url'=>['kode-masalah/index']],
+            ['label'=>'Unit Pemilik', 'url'=>['unit-pemilik/index']],
+            ['label'=>'Unit Pengolah', 'url'=>['unit-pengolah/index']],
+            ['label'=>'Info DPA', 'url'=>['dpa-ref/index']]
+        ]];
+        if (PermissionHelpers::requireMinimumRole('AdminSystem')) {
+            $menuItems[] = ['label'=>'Admin', 'items'=> [
+                ['label'=>'User','url'=>['user/index']],
+                ['label'=>'Role', 'url'=>['role/index']],
+                ['label'=>'Status', 'url'=>['status/index']],
+            ]];
+        }
+        $menuItems[] = [
+            'label'=>'Logout ('.Yii::$app->user->identity->username.')',
+            'url'=>['/site/logout'],
+            'linkOptions'=>['data-method'=>'post'],
+            ];  
+    }
+    $menuItems[] = ['label' => 'About', 'url' => ['/site/about']];
+    
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : 
-                PermissionHelpers::requireMinimumRole('AdminSistem') ?
-                ['label'=>'Admin', 'items'=> [
-                    ['label'=>'User','url'=>['user/index']],
-                    ['label'=>'Role', 'url'=>['role/index']],
-                    ['label'=>'Status', 'url'=>['status/index']],
-                ]] : '',
-                (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'navbar-form'])
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
+        'items' => $menuItems,
+        ]);
     NavBar::end();
     ?>
 

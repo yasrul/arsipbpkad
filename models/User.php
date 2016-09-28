@@ -200,11 +200,7 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
     
-    public function getDepartment() {
-        return $this->hasOne(Departments::className(), ['DeptID'=>'dept_id']);
-    }
-
-        public function getRole() {
+    public function getRole() {
         return $this->hasOne(Role::className(), ['id'=>'role_id']);
     }
     

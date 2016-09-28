@@ -18,20 +18,18 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'username') ?>
+    
+    <?php // $form->field($model, 'auth_key') ?>
 
-    <?= $form->field($model, 'auth_key') ?>
+    <?php // $form->field($model, 'password_hash') ?>
 
-    <?= $form->field($model, 'password_hash') ?>
+    <?php // $form->field($model, 'password_reset_token') ?>
+    
+    <?php  echo $form->field($model, 'email') ?>
 
-    <?= $form->field($model, 'password_reset_token') ?>
+    <?php  echo $form->field($model, 'role_id') ?>
 
-    <?php // echo $form->field($model, 'email') ?>
-
-    <?php // echo $form->field($model, 'dept_id') ?>
-
-    <?php // echo $form->field($model, 'role_id') ?>
-
-    <?php // echo $form->field($model, 'status_id') ?>
+    <?php  echo $form->field($model, 'status_id') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
