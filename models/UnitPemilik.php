@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "unit_pemilik".
@@ -41,5 +42,10 @@ class UnitPemilik extends \yii\db\ActiveRecord
             'kode' => 'Kode',
             'nama_instansi' => 'Nama Instansi',
         ];
+    }
+    
+    public static function getListPemilik() {
+        $droptions = UnitPemilik::find()->asArray()->all();
+        return ArrayHelper::map($droptions, 'kode', 'nama_instansi');
     }
 }

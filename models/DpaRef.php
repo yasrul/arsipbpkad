@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "dpa_ref".
@@ -44,5 +45,10 @@ class DpaRef extends \yii\db\ActiveRecord
             'tahun_bulan' => 'Tahun Bulan',
             'keterangan' => 'Keterangan',
         ];
+    }
+    
+    public static function getListDpa() {
+        $droptions = DpaRef::find()->select('kode, keterangan')->asArray()->all();
+        return ArrayHelper::map($droptions, 'kode', 'keterangan');
     }
 }

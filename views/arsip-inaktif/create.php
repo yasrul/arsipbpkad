@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\ArsipInaktif */
 
 $this->title = 'Create Arsip Inaktif';
-$this->params['breadcrumbs'][] = ['label' => 'Arsip Inaktifs', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Arsip Inaktif', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="arsip-inaktif-create">
