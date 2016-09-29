@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
+use app\models\KodeMasalah;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ArsipInaktif */
@@ -12,7 +14,11 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'kd_masalah')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'kd_masalah')->widget(Select2::className(), [
+        'data'=> KodeMasalah::getListMasalah(),
+        'options' => ['placeholder'=>'[ Pilih Kode Masalah]'],
+        'pluginOptions' => ['allowClear'=>true, 'width'=>'500px']
+    ]) ?>
 
     <?= $form->field($model, 'kd_pemilik')->textInput(['maxlength' => true]) ?>
 

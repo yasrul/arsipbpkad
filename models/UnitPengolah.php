@@ -40,7 +40,7 @@ class UnitPengolah extends \yii\db\ActiveRecord
     {
         return [
             'kode' => 'Kode',
-            'unit_pengolah' => 'Unit Pengolah',
+            'unit_pengolah' => 'Pengolah',
             'keterangan' => 'Keterangan',
         ];
     }

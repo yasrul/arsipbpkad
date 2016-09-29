@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "kode_masalah".
@@ -43,5 +44,10 @@ class KodeMasalah extends \yii\db\ActiveRecord
             'masalah' => 'Masalah',
             'keterangan' => 'Keterangan',
         ];
+    }
+    
+    public static function getListMasalah() {
+        $droptions = KodeMasalah::find()->select(['kode','concat(kode," - ",masalah) kdmasalah'])->asArray()->all();
+        return ArrayHelper::map($droptions, 'kode', 'kdmasalah');
     }
 }

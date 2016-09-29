@@ -41,13 +41,17 @@ class ArsipInaktifSearch extends ArsipInaktif
      */
     public function search($params)
     {
-        $query = ArsipInaktif::find();
+        $query = ArsipInaktif::find()->joinWith('pemilik');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=>['kurun_waktu'=>SORT_DESC],
+            ]
         ]);
+        
 
         $this->load($params);
 

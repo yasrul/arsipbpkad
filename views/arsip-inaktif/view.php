@@ -29,16 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'no_fisis',
-            'kd_masalah',
-            'kd_pemilik',
-            'kd_pengolah',
+            'no_def',
+            ['label'=>'Kode Masalah', 'attribute'=>'textMasalah'],
+            'pemilik.nama_instansi',
+            'pengolah.nama_pengolah',
             'uraian',
             'kurun_waktu',
-            'kd_ruang',
-            'kd_rak',
+            'ruang.nama_ruang',
+            'rak.nama_rak',
             'no_box',
-            'kd_dpa',
+            'dpa.keterangan'
         ],
     ]) ?>
 

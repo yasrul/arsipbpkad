@@ -51,15 +51,15 @@ class ArsipInaktif extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'no_def' => 'No Def',
-            'kd_masalah' => 'Kode Masalah',
-            'kd_pemilik' => 'Kd Pemilik',
-            'kd_pengolah' => 'Kd Pengolah',
+            'kd_masalah' => 'Kd Masalah',
+            'kd_pemilik' => 'Pemilik',
+            'kd_pengolah' => 'Unit Pengolah',
             'uraian' => 'Uraian',
-            'kurun_waktu' => 'Kurun Waktu',
-            'kd_ruang' => 'Kd Ruang',
-            'kd_rak' => 'Kd Rak',
+            'kurun_waktu' => 'Tahun',
+            'kd_ruang' => 'Ruang',
+            'kd_rak' => 'Rak',
             'no_box' => 'No Box',
-            'kd_dpa' => 'Kd Dpa',
+            'kd_dpa' => 'Kd DPA',
         ];
     }
     
@@ -67,6 +67,10 @@ class ArsipInaktif extends \yii\db\ActiveRecord
         return $this->hasOne(KodeMasalah::className(), ['kode'=>'kd_masalah']);
     }
     
+    public function getTextMasalah() {
+        return $this->kd_masalah.' - '.$this->masalah->masalah;
+    }
+
     public function getPemilik() {
         return $this->hasOne(UnitPemilik::className(), ['kode'=>'kd_pemilik']) ;
     }
