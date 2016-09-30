@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'uraian',
             ['attribute'=>'kurun_waktu', 'contentOptions'=>['style'=>'width:8%']],
             // 'kd_ruang',
-            'kd_rak',
+            ['attribute'=>'namaRak', 'value'=>'rak.nama_rak', 'contentOptions'=>['style'=>'width:8%']],
             'no_box',
             //'kd_dpa',
 

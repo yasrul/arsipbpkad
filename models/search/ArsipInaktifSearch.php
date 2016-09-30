@@ -13,6 +13,7 @@ use app\models\ArsipInaktif;
 class ArsipInaktifSearch extends ArsipInaktif
 {
     public $namaPemilik;
+    public $namaRak;
     /**
      * @inheritdoc
      */
@@ -20,7 +21,7 @@ class ArsipInaktifSearch extends ArsipInaktif
     {
         return [
             [['id'], 'integer'],
-            [['no_def', 'kd_masalah', 'kd_pemilik','namaPemilik', 'kd_pengolah', 'uraian', 'kurun_waktu', 'kd_ruang', 'kd_rak', 'no_box', 'kd_dpa'], 'safe'],
+            [['no_def', 'kd_masalah', 'kd_pemilik','namaPemilik', 'kd_pengolah', 'uraian', 'kurun_waktu', 'kd_ruang', 'kd_rak','namaRak', 'no_box', 'kd_dpa'], 'safe'],
         ];
     }
 
@@ -42,7 +43,7 @@ class ArsipInaktifSearch extends ArsipInaktif
      */
     public function search($params)
     {
-        $query = ArsipInaktif::find()->joinWith('pemilik');
+        $query = ArsipInaktif::find()->joinWith(['pemilik','rak']);
 
         // add conditions that should always apply here
 
@@ -56,6 +57,11 @@ class ArsipInaktifSearch extends ArsipInaktif
         $dataProvider->sort->attributes['namaPemilik'] = [
             'asc'=>['unit_pemilik.nama_instansi'=>SORT_ASC],
             'desc'=>['unit_pemilik.nama_instansi'=>SORT_DESC]
+        ];
+        
+        $dataProvider->sort->attributes['namaRak'] = [
+            'asc'=>['lok_rak.nama_rak'=>SORT_ASC],
+            'desc'=>['lok_rak.nama_rak'=>SORT_DESC]
         ];
 
         $this->load($params);
@@ -80,6 +86,7 @@ class ArsipInaktifSearch extends ArsipInaktif
             ->andFilterWhere(['like', 'kurun_waktu', $this->kurun_waktu])
             ->andFilterWhere(['like', 'kd_ruang', $this->kd_ruang])
             ->andFilterWhere(['like', 'kd_rak', $this->kd_rak])
+            ->andFilterWhere(['like', 'lok_rak.nama_rak', $this->namaRak])
             ->andFilterWhere(['like', 'no_box', $this->no_box])
             ->andFilterWhere(['like', 'kd_dpa', $this->kd_dpa]);
 
