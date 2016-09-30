@@ -59,7 +59,7 @@ class ArsipInaktif extends \yii\db\ActiveRecord
             'kd_ruang' => 'Ruang',
             'kd_rak' => 'Rak',
             'no_box' => 'No Box',
-            'kd_dpa' => 'Kd DPA',
+            'kd_dpa' => 'Ket DPA',
         ];
     }
     

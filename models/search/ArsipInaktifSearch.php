@@ -13,7 +13,9 @@ use app\models\ArsipInaktif;
 class ArsipInaktifSearch extends ArsipInaktif
 {
     public $namaPemilik;
+    public $namaPengolah;
     public $namaRak;
+    public $ketDpa;
     /**
      * @inheritdoc
      */
@@ -21,7 +23,10 @@ class ArsipInaktifSearch extends ArsipInaktif
     {
         return [
             [['id'], 'integer'],
-            [['no_def', 'kd_masalah', 'kd_pemilik','namaPemilik', 'kd_pengolah', 'uraian', 'kurun_waktu', 'kd_ruang', 'kd_rak','namaRak', 'no_box', 'kd_dpa'], 'safe'],
+            [['no_def', 'kd_masalah', 'kd_pemilik','namaPemilik',
+                'kd_pengolah','namaPengolah', 'uraian', 'kurun_waktu', 'kd_ruang',
+                'kd_rak','namaRak', 'no_box', 'kd_dpa', 'ketDpa'], 'safe'
+            ],
         ];
     }
 
@@ -43,7 +48,7 @@ class ArsipInaktifSearch extends ArsipInaktif
      */
     public function search($params)
     {
-        $query = ArsipInaktif::find()->joinWith(['pemilik','rak']);
+        $query = ArsipInaktif::find()->joinWith(['pemilik','pengolah','rak','dpa']);
 
         // add conditions that should always apply here
 
@@ -79,16 +84,18 @@ class ArsipInaktifSearch extends ArsipInaktif
 
         $query->andFilterWhere(['like', 'no_def', $this->no_def])
             ->andFilterWhere(['like', 'kd_masalah', $this->kd_masalah])
-            ->andFilterWhere(['like', 'kd_pemilik', $this->kd_pemilik])
+            //->andFilterWhere(['like', 'kd_pemilik', $this->kd_pemilik])
             ->andFilterWhere(['like', 'unit_pemilik.nama_instansi', $this->namaPemilik])
-            ->andFilterWhere(['like', 'kd_pengolah', $this->kd_pengolah])
+            //->andFilterWhere(['like', 'kd_pengolah', $this->kd_pengolah])
+            ->andFilterWhere(['like', 'unit_pengolah.nama_pengolah', $this->namaPengolah])
             ->andFilterWhere(['like', 'uraian', $this->uraian])
             ->andFilterWhere(['like', 'kurun_waktu', $this->kurun_waktu])
             ->andFilterWhere(['like', 'kd_ruang', $this->kd_ruang])
-            ->andFilterWhere(['like', 'kd_rak', $this->kd_rak])
+            //->andFilterWhere(['like', 'kd_rak', $this->kd_rak])
             ->andFilterWhere(['like', 'lok_rak.nama_rak', $this->namaRak])
             ->andFilterWhere(['like', 'no_box', $this->no_box])
-            ->andFilterWhere(['like', 'kd_dpa', $this->kd_dpa]);
+            //->andFilterWhere(['like', 'kd_dpa', $this->kd_dpa])
+            ->andFilterWhere(['like', 'dpa_ref.keterangan', $this->ketDpa]);
 
         return $dataProvider;
     }

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\bootstrap\Collapse;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\ArsipInaktifSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,7 +14,16 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="arsip-inaktif-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php  //echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php
+        echo Collapse::widget([
+        'items'=> [
+            [
+                'label'=>'Pencarian Tambahan',
+                'content'=> $this->render('_search', ['model' => $searchModel])
+            ]
+        ]
+    ]);   
+    ?>
 
     <p>
         <?= Html::a('Create Arsip Inaktif', ['create'], ['class' => 'btn btn-success']) ?>
@@ -33,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute'=>'kurun_waktu', 'contentOptions'=>['style'=>'width:8%']],
             // 'kd_ruang',
             ['attribute'=>'namaRak', 'value'=>'rak.nama_rak', 'contentOptions'=>['style'=>'width:8%']],
-            'no_box',
+            ['attribute'=> 'no_box', 'contentOptions'=> ['style'=>'width : 7%']],
             //'kd_dpa',
 
             ['class' => 'yii\grid\ActionColumn', 'contentOptions'=>['style'=>'width : 6%']],
