@@ -12,6 +12,7 @@ use app\models\ArsipInaktif;
  */
 class ArsipInaktifSearch extends ArsipInaktif
 {
+    public $namaPemilik;
     /**
      * @inheritdoc
      */
@@ -19,7 +20,7 @@ class ArsipInaktifSearch extends ArsipInaktif
     {
         return [
             [['id'], 'integer'],
-            [['no_def', 'kd_masalah', 'kd_pemilik', 'kd_pengolah', 'uraian', 'kurun_waktu', 'kd_ruang', 'kd_rak', 'no_box', 'kd_dpa'], 'safe'],
+            [['no_def', 'kd_masalah', 'kd_pemilik','namaPemilik', 'kd_pengolah', 'uraian', 'kurun_waktu', 'kd_ruang', 'kd_rak', 'no_box', 'kd_dpa'], 'safe'],
         ];
     }
 
@@ -48,10 +49,14 @@ class ArsipInaktifSearch extends ArsipInaktif
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
-                'defaultOrder'=>['kurun_waktu'=>SORT_DESC],
+                'defaultOrder'=>['kurun_waktu'=>SORT_DESC]
             ]
         ]);
         
+        $dataProvider->sort->attributes['namaPemilik'] = [
+            'asc'=>['unit_pemilik.nama_instansi'=>SORT_ASC],
+            'desc'=>['unit_pemilik.nama_instansi'=>SORT_DESC]
+        ];
 
         $this->load($params);
 
@@ -69,6 +74,7 @@ class ArsipInaktifSearch extends ArsipInaktif
         $query->andFilterWhere(['like', 'no_def', $this->no_def])
             ->andFilterWhere(['like', 'kd_masalah', $this->kd_masalah])
             ->andFilterWhere(['like', 'kd_pemilik', $this->kd_pemilik])
+            ->andFilterWhere(['like', 'unit_pemilik.nama_instansi', $this->namaPemilik])
             ->andFilterWhere(['like', 'kd_pengolah', $this->kd_pengolah])
             ->andFilterWhere(['like', 'uraian', $this->uraian])
             ->andFilterWhere(['like', 'kurun_waktu', $this->kurun_waktu])

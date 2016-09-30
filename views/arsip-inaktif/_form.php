@@ -7,7 +7,9 @@ use app\models\KodeMasalah;
 use app\models\UnitPemilik;
 use app\models\UnitPengolah;
 use app\models\LokRuang;
+use app\models\LokRak;
 use app\models\DpaRef;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ArsipInaktif */
@@ -38,17 +40,21 @@ use app\models\DpaRef;
 
     <?= $form->field($model, 'uraian')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'kurun_waktu')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'kurun_waktu')->textInput(['maxlength' => true, 'style'=>'width : 300px']) ?>
 
     <?= $form->field($model, 'kd_ruang')->widget(Select2::className(), [
-        'data' => app\models\LokRuang::getListRuang(),
-        'options' => ['placeholder'=>'[ Pilih Lokasi Ruang ]'],
+        'data' => LokRuang::getListRuang(),
+        'options' => ['id'=>'kd-ruang', 'placeholder'=>'[ Pilih Ruang ]'],
         'pluginOptions'=>['allowClear'=>true, 'width'=>'500px'],
     ]) ?>
 
-    <?= $form->field($model, 'kd_rak')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'kd_rak')->widget(Select2::className(), [
+        'data'=> LokRak::getListRak(),
+        'options'=> ['id'=>'kd-rak','placeholder'=>'[ Pilih Rak]'],
+        'pluginOptions'=>['allowClear'=>true, 'width'=>'500px']
+    ]) ?>
 
-    <?= $form->field($model, 'no_box')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'no_box')->textInput(['maxlength' => true, 'style'=>'width: 300px']) ?>
 
     <?= $form->field($model, 'kd_dpa')->widget(Select2::className(), [
         'data' => DpaRef::getListDpa(),
@@ -61,5 +67,23 @@ use app\models\DpaRef;
     </div>
 
     <?php ActiveForm::end(); ?>
+    
+    <?php
+    $this->registerJs('
+        $("#kd-rak").attr("disabled",true);
+        $("#kd-ruang").change( function() {
+            $.get("'.Url::to(['get-raks','kdRuang'=>'']).'" + $(this).val(), function(data) {
+                select = $("#kd-rak");
+                select.empty();
+                var options = "<option value=\'\'>[ Pilih Rak ]</option>";
+                $.each(data.raks, function(key, value) {
+                    options += "<option value=\'"+value.kode+"\'>"+value.nama_rak+"</option>";
+                });
+                select.append(options);
+                $("#kd-rak").attr("disabled", false);
+            })
+        })
+    ');
+    ?>
 
 </div>

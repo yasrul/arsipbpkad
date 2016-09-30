@@ -121,4 +121,12 @@ class ArsipInaktifController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionGetRaks($kdRuang) {
+        $raks = (new \yii\db\Query())
+                ->select('kode, nama_rak')->from('lok_rak')->where(['kd_ruang'=>$kdRuang])
+                ->all();
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return ['raks'=>$raks];
+    }
 }
