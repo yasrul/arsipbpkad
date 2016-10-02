@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             ['attribute'=>'no_def', 'contentOptions'=>['style'=>'width : 5%']],
             ['attribute'=>'kd_masalah', 'contentOptions'=>['style'=>'width : 5%']],
-            ['attribute'=>'namaPemilik', 'value'=>'pemilik.nama_instansi'],
+            ['attribute'=>'unitPemilik', 'value'=>'pemilik.nama_instansi'],
             //'kd_pengolah',
             'uraian',
             ['attribute'=>'kurun_waktu', 'contentOptions'=>['style'=>'width:8%']],

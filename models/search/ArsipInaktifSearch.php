@@ -12,10 +12,11 @@ use app\models\ArsipInaktif;
  */
 class ArsipInaktifSearch extends ArsipInaktif
 {
-    public $namaPemilik;
-    public $namaPengolah;
+    public $unitPemilik;
+    public $unitPengolah;
     public $namaRak;
     public $ketDpa;
+    public $linkArsip;
     /**
      * @inheritdoc
      */
@@ -23,8 +24,8 @@ class ArsipInaktifSearch extends ArsipInaktif
     {
         return [
             [['id'], 'integer'],
-            [['no_def', 'kd_masalah', 'kd_pemilik','namaPemilik',
-                'kd_pengolah','namaPengolah', 'uraian', 'kurun_waktu', 'kd_ruang',
+            [['no_def', 'kd_masalah', 'kd_pemilik','unitPemilik',
+                'kd_pengolah','unitPengolah', 'uraian','linkArsip', 'kurun_waktu', 'kd_ruang',
                 'kd_rak','namaRak', 'no_box', 'kd_dpa', 'ketDpa'], 'safe'
             ],
         ];
@@ -54,20 +55,36 @@ class ArsipInaktifSearch extends ArsipInaktif
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => [
-                'defaultOrder'=>['kurun_waktu'=>SORT_DESC]
-            ]
         ]);
         
-        $dataProvider->sort->attributes['namaPemilik'] = [
-            'asc'=>['unit_pemilik.nama_instansi'=>SORT_ASC],
-            'desc'=>['unit_pemilik.nama_instansi'=>SORT_DESC]
-        ];
-        
-        $dataProvider->sort->attributes['namaRak'] = [
-            'asc'=>['lok_rak.nama_rak'=>SORT_ASC],
-            'desc'=>['lok_rak.nama_rak'=>SORT_DESC]
-        ];
+        $dataProvider->setSort([
+            'attributes' => [
+                'no_def',
+                'kd_masalah',
+                'unitPemilik' => [
+                    'asc'=>['unit_pemilik.nama_instansi'=>SORT_ASC],
+                    'desc'=>['unit_pemilik.nama_instansi'=>SORT_DESC]
+                ],
+                'namaRak' => [
+                    'asc'=>['lok_rak.nama_rak'=>SORT_ASC],
+                    'desc'=>['lok_rak.nama_rak'=>SORT_DESC]
+                ],
+                'linkArsip' => [
+                    'asc'=>['uraian'=>SORT_ASC],
+                    'desc'=>['uraian'=>SORT_DESC]
+                ],
+                'kurun_waktu',
+                'unitPengolah' => [
+                    'asc' => ['unit_pengolah.nama_pengolah'=>SORT_ASC],
+                    'desc' => ['unit_pengolah.nama_pengolah'=>SORT_DESC]
+                ],
+                'ketDpa' => [
+                    'asc'=> ['dpa_ref.keterangan'=>SORT_ASC],
+                    'desc'=>['dpa_ref.keterangan'=>SORT_DESC]
+                ]
+            ],
+            'defaultOrder'=>['kurun_waktu'=>SORT_DESC]
+        ]);
 
         $this->load($params);
 
@@ -85,10 +102,10 @@ class ArsipInaktifSearch extends ArsipInaktif
         $query->andFilterWhere(['like', 'no_def', $this->no_def])
             ->andFilterWhere(['like', 'kd_masalah', $this->kd_masalah])
             //->andFilterWhere(['like', 'kd_pemilik', $this->kd_pemilik])
-            ->andFilterWhere(['like', 'unit_pemilik.nama_instansi', $this->namaPemilik])
+            ->andFilterWhere(['like', 'unit_pemilik.nama_instansi', $this->unitPemilik])
             //->andFilterWhere(['like', 'kd_pengolah', $this->kd_pengolah])
-            ->andFilterWhere(['like', 'unit_pengolah.nama_pengolah', $this->namaPengolah])
-            ->andFilterWhere(['like', 'uraian', $this->uraian])
+            ->andFilterWhere(['like', 'unit_pengolah.nama_pengolah', $this->unitPengolah])
+            ->andFilterWhere(['like', 'uraian', $this->linkArsip])
             ->andFilterWhere(['like', 'kurun_waktu', $this->kurun_waktu])
             ->andFilterWhere(['like', 'kd_ruang', $this->kd_ruang])
             //->andFilterWhere(['like', 'kd_rak', $this->kd_rak])

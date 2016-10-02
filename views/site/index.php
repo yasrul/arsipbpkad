@@ -1,53 +1,53 @@
 <?php
 
+use yii\helpers\Html;
+use yii\grid\GridView;
+use yii\widgets\Pjax;
+use yii\bootstrap\Collapse;
+
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Arsip BPKAD Provinsi NTB';
 ?>
-<div class="site-index">
+<div class="arsip-inaktif-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    <h1 align="center">e-Arsip BPKAD Provinsi NTB<i class="fa fa-folder-open"></i></h1>
+    <p align="center" class="lead">Sistem Informasi Arsip Inaktif</p>
+    <?php
+        echo Collapse::widget([
+        'items'=> [
+            [
+                'label'=>'Pencarian Tambahan',
+                'content'=> $this->render('/arsip-inaktif/_search', ['model' => $searchModel])
+            ]
+        ]
+    ]);   
+    ?>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+    <p>
+        <?php //echo Html::a('Create Arsip Inaktif', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+<?php Pjax::begin(); ?>    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
+            //'id',
+            ['attribute'=>'no_def', 'contentOptions'=>['style'=>'width : 5%']],
+            ['attribute'=>'kd_masalah', 'contentOptions'=>['style'=>'width : 5%']],
+            ['attribute'=>'unitPemilik', 'value'=>'pemilik.nama_instansi'],
+            ['attribute' => 'linkArsip', 'format' => 'raw', 'label' => 'Uraian'],
+            //'uraian',
+            ['attribute'=>'kurun_waktu', 'contentOptions'=>['style'=>'width:8%']],
+            // 'kd_ruang',
+            ['attribute'=> 'unitPengolah', 'value'=>'pengolah.nama_pengolah'],
+            //['attribute'=>'namaRak', 'value'=>'rak.nama_rak', 'contentOptions'=>['style'=>'width:8%']],
+            //['attribute'=> 'no_box', 'contentOptions'=> ['style'=>'width : 7%']],
+            //'kd_dpa',
+            ['attribute'=>'ketDpa', 'value'=>'dpa.keterangan'],
 
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
-</div>
+            //['class' => 'yii\grid\ActionColumn', 'contentOptions'=>['style'=>'width : 6%']],
+        ],
+    ]); ?>
+<?php Pjax::end(); ?></div>

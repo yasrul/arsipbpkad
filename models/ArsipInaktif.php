@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Url;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "arsip_inaktif".
@@ -55,12 +57,19 @@ class ArsipInaktif extends \yii\db\ActiveRecord
             'kd_pemilik' => 'Pemilik',
             'kd_pengolah' => 'Unit Pengolah',
             'uraian' => 'Uraian',
+            'linkArsip'=> Yii::t('app', 'ArsipInaktif'),
             'kurun_waktu' => 'Tahun',
             'kd_ruang' => 'Ruang',
             'kd_rak' => 'Rak',
             'no_box' => 'No Box',
             'kd_dpa' => 'Ket DPA',
         ];
+    }
+    
+    public function getLinkArsip() {
+        $url = Url::to(['arsip-inaktif/view', 'id' => $this->id]);
+        $option = [];
+        return Html::a($this->uraian, $url, $option);
     }
     
     public function getMasalah() {

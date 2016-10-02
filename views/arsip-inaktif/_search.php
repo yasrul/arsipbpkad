@@ -30,9 +30,9 @@ use app\models\DpaRef;
 
     <?= $form->field($model, 'kd_masalah') ?>
 
-    <?= $form->field($model, 'kd_pemilik') ?>-->
+    <?= $form->field($model, 'kd_pemilik') ?>
 
-    <?= $form->field($model, 'namaPengolah')->textInput(['maxLength'=> true, 'style'=> 'width: 500px']) ?>
+    <?= $form->field($model, 'unitPengolah')->textInput(['maxLength'=> true, 'style'=> 'width: 500px']) ?>-->
 
     <?php // echo $form->field($model, 'uraian') ?>
 
@@ -40,11 +40,11 @@ use app\models\DpaRef;
 
     <?php // echo $form->field($model, 'kd_ruang') ?>
 
-    <?php // echo $form->field($model, 'kd_rak') ?>
+    <?php echo $form->field($model, 'kd_rak') ?>
 
-    <?php // echo $form->field($model, 'no_box') ?>
+    <?php echo $form->field($model, 'no_box') ?>
 
-    <?php echo $form->field($model, 'ketDpa')->textInput(['maxLength'=>true, 'style'=> 'width: 500px']) ?>
+    <?php //echo $form->field($model, 'ketDpa')->textInput(['maxLength'=>true, 'style'=> 'width: 500px']) ?>
 
     <div class="form-group">
         <div class="col-lg-offset-2 col-lg-11">
