@@ -7,13 +7,15 @@ use yii\widgets\DetailView;
 /* @var $model app\models\ArsipInaktif */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Arsip Inaktif', 'url' => ['index']];
+if (! Yii::$app->user->isGuest) {
+    $this->params['breadcrumbs'][] = ['label' => 'Arsip Inaktif', 'url' => ['index']];
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="arsip-inaktif-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <?php if(! Yii::$app->user->isGuest) : ?>
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
@@ -24,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <?php endif; ?>
 
     <?= DetailView::widget([
         'model' => $model,

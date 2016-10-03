@@ -51,7 +51,10 @@ AppAsset::register($this);
             ['label'=>'Lokasi Rak', 'url'=>['lok-rak/index']]
         ]];
         
-        $menuItems[] = ['label'=>'Arsip', 'url'=>['arsip-inaktif/index']];
+        $menuItems[] = ['label'=>'Arsip', 'items' => [
+            ['label' => 'Kelola', 'url'=>['arsip-inaktif/index']],
+            ['label' => 'Laporan', 'url'=>['laporan/lap-dpa']]
+        ]];
         
         if (PermissionHelpers::requireMinimumRole('AdminSystem')) {
             $menuItems[] = ['label'=>'Admin', 'items'=> [
