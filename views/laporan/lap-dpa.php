@@ -18,17 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <div class="row">
         <div class="col-lg-4">
-            <?= $form->field($model, 'ymDpa1')->widget(DatePicker::className([
-                //'dateFormat'=>'yyyy-MM',
-                //'options'=>['class'=>'form-control' ,'style'=>'width : 500px'],
-                'clientOptions'=>[            
-                    'changeMonth' => false,
-                    'changeYear' => true,
-                    'showButtonPanel' => true,
-                    'dateFormat' => 'yyyy',
-                    'yearRange' => '1990:2020'
-                ]
-            ])) ?>
+            <?= $form->field($model, 'ymDpa1')->textInput(['maxlength'=> true, 'options'=>['id'=>'datepicker','readonly'=>'readonly']]) ?>
             <?= $form->field($model, 'ymDpa2') ?>
         </div>
         <div class="col-lg-4">
@@ -65,6 +55,15 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
     ]); ?>
     
+    <?php $this->registerJs('
+            $("#datepicker").datepicker( {
+    format: "mm",
+    viewMode: "months", 
+    minViewMode: "months"
+});'
+            )
+    
+    ?>
    
 </div>
 
