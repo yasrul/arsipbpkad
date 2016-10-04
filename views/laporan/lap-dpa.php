@@ -19,10 +19,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-4">
             <?= $form->field($model, 'ymDpa1')->widget(DatePicker::className([
-                'dateFormat'=>'yyyy-MM',
-                'options'=>['class'=>'form-control' ,'style'=>'width : 500px'],
+                //'dateFormat'=>'yyyy-MM',
+                //'options'=>['class'=>'form-control' ,'style'=>'width : 500px'],
                 'clientOptions'=>[            
-                    'changeYear'=>TRUE
+                    'changeMonth' => false,
+                    'changeYear' => true,
+                    'showButtonPanel' => true,
+                    'dateFormat' => 'yyyy',
+                    'yearRange' => '1990:2020'
                 ]
             ])) ?>
             <?= $form->field($model, 'ymDpa2') ?>
