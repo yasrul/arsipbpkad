@@ -51,4 +51,10 @@ class DpaRef extends \yii\db\ActiveRecord
         $droptions = DpaRef::find()->select('kode, keterangan')->asArray()->all();
         return ArrayHelper::map($droptions, 'kode', 'keterangan');
     }
+    
+    public static function getYmDpa() {
+        $droptions = DpaRef::find()->select(['kode','concat(upper(monthname(tahun_bulan))," ",year(tahun_bulan)) as thnbln'])
+                ->orderBy('tahun_bulan desc')->asArray()->all();
+        return ArrayHelper::map($droptions, 'kode', 'thnbln');
+    }
 }
