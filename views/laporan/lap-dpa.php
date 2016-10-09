@@ -38,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <div class="form-group">
         <?= Html::submitButton('Seleksi', ['class' => 'btn btn-primary']) ?> &nbsp;&nbsp;
-        <?= Html::a('Export PDF', ['exp-pdf','params'=>$model],['class'=>'btn btn-info']) ?>
         <?= Html::a('Export Excel',['exp-excel','params'=>$model],['class'=>'btn btn-info']) ?>
+        <?= Html::a('Export PDF', ['exp-pdf','params'=>$model],['class'=>'btn btn-info']) ?>
     </div>
     
     <?php ActiveForm::end(); ?>

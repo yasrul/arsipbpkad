@@ -19,10 +19,10 @@ class LaporanController extends Controller {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['lap-dpa','exp-excel'],
+                'only' => ['lap-dpa','exp-excel','exp-pdf'],
                 'rules' => [
                     [
-                        'actions' => ['lap-dpa','exp-excel'],
+                        'actions' => ['lap-dpa','exp-excel','exp-pdf'],
                         'allow' => true,
                         'roles' => ['@']
                     ]
@@ -43,13 +43,15 @@ class LaporanController extends Controller {
     }
     
     public function actionExpExcel(array $params) {
-        $model = new LaporanForm();
         
+        $model = new LaporanForm();
         $model->dpa = $params['dpa'];
         $model->unitPemilik = $params['unitPemilik'];
         $model->unitPengolah = $params['unitPengolah'];
                
-        $dataProvider = $model->search($params);
+        $dataProvider = $model->search();
+        
+        $dataProvider->pagination = ['pageSize'=>FALSE];
         
         $objReader = \PHPExcel_IOFactory::createReader('Excel2007');
         //set template
@@ -66,9 +68,13 @@ class LaporanController extends Controller {
             $activeSheet->setCellValue('A'.$baseRow, $baseRow-2)
                     ->setCellValue('B'.$baseRow, $arsip->no_def)
                     ->setCellValue('C'.$baseRow, $arsip->kd_masalah)
-                    ->setCellValue('D'.$baseRow, $arsip->uraian)
-                    ->setCellValue('E'.$baseRow, $arsip->kd_pemilik)
-                    ->setCellValue('F'.$baseRow, $arsip->kd_pengolah);
+                    ->setCellValue('D'.$baseRow, $arsip->pemilik->nama_instansi)
+                    ->setCellValue('E'.$baseRow, $arsip->uraian)
+                    ->setCellValue('F'.$baseRow, $arsip->kurun_waktu)
+                    ->setCellValue('G'.$baseRow, $arsip->pengolah->nama_pengolah)
+                    ->setCellValue('H'.$baseRow, $arsip->rak->nama_rak)
+                    ->setCellValue('I'.$baseRow, $arsip->no_box)
+                    ->setCellValue('J'.$baseRow, $arsip->dpa->keterangan);
             $baseRow++;
         }
         
@@ -77,6 +83,27 @@ class LaporanController extends Controller {
         header('Cache-Control: max-age=0');
         $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, "Excel2007");
         $objWriter->save('php://output');
+        exit;
+    }
+    
+    public function actionExpPdf(array $params) {
+        $model = new LaporanForm();
+        $model->dpa = $params['dpa'];
+        $model->unitPemilik = $params['unitPemilik'];
+        $model->unitPengolah = $params['unitPengolah'];
+               
+        $dataProvider = $model->search();
+        
+        $dataProvider->pagination = ['pageSize'=>FALSE];
+        
+        $html = $this->renderPartial('_exppdf', ['dataProvider'=>$dataProvider]);
+        
+        $mpdf = new \mPDF('c','A4-L','','',0,0,0,0,0,0);
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->list_indent_first_level = 0;
+        $mpdf->WriteHTML($html);
+        $mpdf->Output();
+
         exit;
     }
 }

@@ -36,7 +36,7 @@ class LaporanForm extends Model {
         ];
     }
     
-    public function search($params) {
+    public function search($params = null) {
         $query = ArsipInaktif::find()->joinWith(['pemilik','pengolah','dpa']);
         
         $dataProvider = new ActiveDataProvider([
