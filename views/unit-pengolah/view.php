@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'kode',
-            'unit_pengolah',
+            'nama_pengolah',
             'keterangan',
         ],
     ]) ?>

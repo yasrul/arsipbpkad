@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             ['attribute'=>'kode', 'contentOptions'=>['style'=>'width: 10%']],
-            'unit_pengolah',
+            'nama_pengolah',
             'keterangan',
 
             ['class' => 'yii\grid\ActionColumn', 'contentOptions'=>['style'=>'width: 9%']],

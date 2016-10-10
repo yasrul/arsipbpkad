@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'kode')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'unit_pengolah')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nama_pengolah')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'keterangan')->textInput(['maxlength' => true]) ?>
 

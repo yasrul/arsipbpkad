@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\models\search;
 
 use Yii;
 use yii\base\Model;
@@ -18,7 +18,7 @@ class UnitPengolahSearch extends UnitPengolah
     public function rules()
     {
         return [
-            [['kode', 'unit_pengolah', 'keterangan'], 'safe'],
+            [['kode', 'nama_pengolah', 'keterangan'], 'safe'],
         ];
     }
 
@@ -58,7 +58,7 @@ class UnitPengolahSearch extends UnitPengolah
 
         // grid filtering conditions
         $query->andFilterWhere(['like', 'kode', $this->kode])
-            ->andFilterWhere(['like', 'unit_pengolah', $this->unit_pengolah])
+            ->andFilterWhere(['like', 'nama_pengolah', $this->nama_pengolah])
             ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
 
         return $dataProvider;

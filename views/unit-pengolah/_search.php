@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'kode') ?>
 
-    <?= $form->field($model, 'unit_pengolah') ?>
+    <?= $form->field($model, 'nama_pengolah') ?>
 
     <?= $form->field($model, 'keterangan') ?>
 
