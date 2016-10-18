@@ -65,8 +65,11 @@ class DpaRefController extends Controller
     {
         $model = new DpaRef();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->kode]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->kode = substr($model->tahun_bulan, 0, 4).substr($model->tahun_bulan, 5, 2);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->kode]);
+            } 
         } else {
             return $this->render('create', [
                 'model' => $model,

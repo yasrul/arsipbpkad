@@ -46,6 +46,9 @@ class DpaRefSearch extends DpaRef
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder'=>['tahun_bulan'=>SORT_DESC]
+            ]
         ]);
 
         $this->load($params);
@@ -57,12 +60,13 @@ class DpaRefSearch extends DpaRef
         }
 
         // grid filtering conditions
-        $query->andFilterWhere([
-            'tahun_bulan' => $this->tahun_bulan,
-        ]);
+        /*$query->andFilterWhere([
+        //    'tahun_bulan' => $this->tahun_bulan,
+        ]);*/
 
         $query->andFilterWhere(['like', 'kode', $this->kode])
-            ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
+                ->andFilterWhere(['like', 'tahun_bulan', $this->tahun_bulan])
+                ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
 
         return $dataProvider;
     }

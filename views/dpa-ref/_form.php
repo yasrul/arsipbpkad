@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\date\DatePicker
 
 /* @var $this yii\web\View */
 /* @var $model app\models\DpaRef */
@@ -12,9 +13,17 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'kode')->textInput(['maxlength' => true]) ?>
+    <!--<?= $form->field($model, 'kode')->textInput(['maxlength' => true]) ?>-->
 
-    <?= $form->field($model, 'tahun_bulan')->textInput() ?>
+    <?= $form->field($model, 'tahun_bulan')->widget(DatePicker::className(),[
+        'options'=>['placeholder'=>'[ Pilih Bulan Tahun ]','style'=>'width:300px'],
+        'pluginOptions'=>[
+            'autoclose'=>TRUE,
+            'startView'=>'year',
+            'minViewMode'=>'months',
+            'format'=>'yyyy-mm-00',
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'keterangan')->textInput(['maxlength' => true]) ?>
 
