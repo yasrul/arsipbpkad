@@ -28,8 +28,8 @@ class UnitPengolah extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kode', 'unit_pengolah'], 'required'],
-            [['kode'], 'string', 'max' => 10],
+            [['unit_pengolah'], 'required'],
+            [['kode'], 'integer'],
             [['unit_pengolah', 'keterangan'], 'string', 'max' => 100],
         ];
     }

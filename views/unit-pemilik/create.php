@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\UnitPemilik */
 
 $this->title = 'Create Unit Pemilik';
-$this->params['breadcrumbs'][] = ['label' => 'Unit Pemiliks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Unit Pemilik', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="unit-pemilik-create">

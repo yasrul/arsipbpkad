@@ -55,10 +55,11 @@ class UnitPemilikSearch extends UnitPemilik
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        $query->andFilterWhere(['kode' => $this->kode]);
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'kode', $this->kode])
-            ->andFilterWhere(['like', 'nama_instansi', $this->nama_instansi]);
+        $query->andFilterWhere(['like', 'nama_instansi', $this->nama_instansi]);
 
         return $dataProvider;
     }

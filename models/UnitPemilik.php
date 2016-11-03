@@ -27,8 +27,8 @@ class UnitPemilik extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['kode', 'nama_instansi'], 'required'],
-            [['kode'], 'string', 'max' => 10],
+            [['nama_instansi'], 'required'],
+            [['kode'], 'integer'],
             [['nama_instansi'], 'string', 'max' => 255],
         ];
     }

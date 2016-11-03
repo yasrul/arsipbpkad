@@ -55,10 +55,11 @@ class UnitPengolahSearch extends UnitPengolah
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        $query->andFilterWhere(['kode' => $this->kode]);
 
         // grid filtering conditions
-        $query->andFilterWhere(['like', 'kode', $this->kode])
-            ->andFilterWhere(['like', 'nama_pengolah', $this->nama_pengolah])
+        $query->andFilterWhere(['like', 'nama_pengolah', $this->nama_pengolah])
             ->andFilterWhere(['like', 'keterangan', $this->keterangan]);
 
         return $dataProvider;

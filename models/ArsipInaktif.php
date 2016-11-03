@@ -38,7 +38,8 @@ class ArsipInaktif extends \yii\db\ActiveRecord
     {
         return [
             [['no_def', 'kd_masalah', 'kd_pemilik', 'kd_pengolah', 'uraian', 'kurun_waktu', 'kd_dpa'], 'required'],
-            [['no_def', 'kd_masalah', 'kd_pemilik', 'kd_pengolah', 'kd_ruang', 'kd_rak', 'kd_dpa'], 'string', 'max' => 10],
+            [['kd_pemilik','kd_pengolah'], 'integer'],
+            [['no_def', 'kd_masalah', 'kd_ruang', 'kd_rak', 'kd_dpa'], 'string', 'max' => 10],
             [['uraian'], 'string', 'max' => 255],
             [['kurun_waktu'], 'string', 'max' => 50],
             [['no_box'], 'string', 'max' => 6],
