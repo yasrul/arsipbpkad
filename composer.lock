@@ -481,12 +481,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "a37f76a565e99119ac013fc92ce081ffccb7f858"
+                "reference": "d7bfdabc48d766f4f4a82f715315f19d25f4a0d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/a37f76a565e99119ac013fc92ce081ffccb7f858",
-                "reference": "a37f76a565e99119ac013fc92ce081ffccb7f858",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/d7bfdabc48d766f4f4a82f715315f19d25f4a0d9",
+                "reference": "d7bfdabc48d766f4f4a82f715315f19d25f4a0d9",
                 "shasum": ""
             },
             "require": {
@@ -526,7 +526,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-10-08 18:27:20"
+            "time": "2016-11-03 17:45:17"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -640,16 +640,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.9",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "2b75151ea60e1fd820046416eee2e89c3dda1133"
+                "reference": "5bfcb7a6dfa9771e2248eb8c4448613330f343ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2b75151ea60e1fd820046416eee2e89c3dda1133",
-                "reference": "2b75151ea60e1fd820046416eee2e89c3dda1133",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5bfcb7a6dfa9771e2248eb8c4448613330f343ff",
+                "reference": "5bfcb7a6dfa9771e2248eb8c4448613330f343ff",
                 "shasum": ""
             },
             "require": {
@@ -730,7 +730,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2016-07-11 13:36:42"
+            "time": "2016-10-20 12:02:50"
         },
         {
             "name": "yiisoft/yii2-bootstrap",
