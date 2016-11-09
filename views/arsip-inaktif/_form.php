@@ -11,6 +11,7 @@ use app\models\LokRak;
 use app\models\DpaRef;
 use yii\helpers\Url;
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\ArsipInaktif */
 /* @var $form yii\widgets\ActiveForm */
@@ -18,7 +19,10 @@ use yii\helpers\Url;
 
 <div class="arsip-inaktif-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'enableAjaxValidation' => false,
+        'options' => ['enctype' => 'multipart/form-data']
+    ]); ?>
 
     <?= $form->field($model, 'kd_masalah')->widget(Select2::className(), [
         'data'=> KodeMasalah::getListMasalah(),
@@ -38,7 +42,7 @@ use yii\helpers\Url;
         'pluginOptions' => ['allowClear' => TRUE, 'width'=>'500px']
     ]) ?>
 
-    <?= $form->field($model, 'uraian')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'uraian')->textarea(['rows' => '3', 'style'=>'width : 700px']) ?>
 
     <?= $form->field($model, 'kurun_waktu')->textInput(['maxlength' => true, 'style'=>'width : 300px']) ?>
 
@@ -61,6 +65,8 @@ use yii\helpers\Url;
         'options' => ['placeholder'=>'[ Pilih DPA ]'],
         'pluginOptions'=>['allowClear'=>true, 'width'=>'300px']
     ]) ?>
+    
+    <?= $form->field($model, 'filename')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

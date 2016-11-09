@@ -102,7 +102,7 @@ class LaporanController extends Controller {
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->list_indent_first_level = 0;
         $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        $mpdf->Output(); 
 
         exit;
     }

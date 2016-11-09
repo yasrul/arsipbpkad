@@ -8,6 +8,7 @@ use app\models\search\ArsipInaktifSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ArsipInaktifController implements the CRUD actions for ArsipInaktif model.
@@ -63,15 +64,21 @@ class ArsipInaktifController extends Controller
      */
     public function actionCreate()
     {
+        $dest = \Yii::getAlias('@app/fileupload');
         $model = new ArsipInaktif();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            $model->filename = UploadedFile::getInstance($model, 'filename');
+            if ($model->save()) {
+                if ($model->filename !== NULL) {
+                    $model->filename->saveAs($dest.'/'.$model->filename->name);
+                }
+                return $this->redirect(['view', 'id' => $model->id]);
+            } 
         }
+        return $this->render('create', ['model' => $model]);
+        
     }
 
     /**

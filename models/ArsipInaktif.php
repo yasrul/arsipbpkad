@@ -20,6 +20,7 @@ use yii\helpers\Html;
  * @property string $kd_rak
  * @property string $no_box
  * @property string $kd_dpa
+ * @property string $filename
  */
 class ArsipInaktif extends \yii\db\ActiveRecord
 {
@@ -43,6 +44,7 @@ class ArsipInaktif extends \yii\db\ActiveRecord
             [['uraian'], 'string', 'max' => 255],
             [['kurun_waktu'], 'string', 'max' => 50],
             [['no_box'], 'string', 'max' => 6],
+            [['filename'], 'file','skipOnEmpty' => TRUE]
         ];
     }
 
@@ -64,6 +66,7 @@ class ArsipInaktif extends \yii\db\ActiveRecord
             'kd_rak' => 'Rak',
             'no_box' => 'No Box',
             'kd_dpa' => 'DPA',
+            'filename' => 'Filename',
         ];
     }
     
