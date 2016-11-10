@@ -48,7 +48,7 @@ class DpaRef extends \yii\db\ActiveRecord
     }
     
     public static function getListDpa() {
-        $droptions = DpaRef::find()->select('kode, keterangan')->asArray()->all();
+        $droptions = DpaRef::find()->select('kode, keterangan')->orderBy('tahun_bulan Desc')->asArray()->all();
         return ArrayHelper::map($droptions, 'kode', 'keterangan');
     }
     

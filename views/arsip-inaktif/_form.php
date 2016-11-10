@@ -24,6 +24,8 @@ use yii\helpers\Url;
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
+    <?= $form->field($model, 'no_def')->textInput(['maxlength' => true, 'style'=>'width :150px']) ?>
+    
     <?= $form->field($model, 'kd_masalah')->widget(Select2::className(), [
         'data'=> KodeMasalah::getListMasalah(),
         'options' => ['placeholder'=>'[ Pilih Kode Masalah]'],

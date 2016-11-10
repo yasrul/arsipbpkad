@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['attribute'=>'kd_masalah', 'contentOptions'=>['style'=>'width : 5%']],
             ['attribute'=>'unitPemilik', 'value'=>'pemilik.nama_instansi'],
             //'kd_pengolah',
-            'uraian',
+            ['attribute' => 'linkArsip', 'format' => 'raw', 'label' => 'Uraian'],
             ['attribute'=>'kurun_waktu', 'contentOptions'=>['style'=>'width:8%']],
             ['attribute'=> 'unitPengolah', 'value'=>'pengolah.nama_pengolah'],
             // 'kd_ruang',

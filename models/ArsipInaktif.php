@@ -44,7 +44,7 @@ class ArsipInaktif extends \yii\db\ActiveRecord
             [['uraian'], 'string', 'max' => 255],
             [['kurun_waktu'], 'string', 'max' => 50],
             [['no_box'], 'string', 'max' => 6],
-            [['filename'], 'file','skipOnEmpty' => TRUE]
+            [['filename'], 'file','extensions' => ['pdf','doc','docx'], 'maxSize' => 1024*1024]
         ];
     }
 

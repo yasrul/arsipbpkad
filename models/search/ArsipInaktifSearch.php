@@ -26,7 +26,7 @@ class ArsipInaktifSearch extends ArsipInaktif
             [['id'], 'integer'],
             [['no_def', 'kd_masalah', 'kd_pemilik','unitPemilik',
                 'kd_pengolah','unitPengolah', 'uraian','linkArsip', 'kurun_waktu', 'kd_ruang',
-                'kd_rak','namaRak', 'no_box', 'kd_dpa', 'ketDpa'], 'safe'
+                'kd_rak','namaRak', 'no_box', 'kd_dpa', 'ketDpa','filename'], 'safe'
             ],
         ];
     }

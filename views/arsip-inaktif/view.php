@@ -41,7 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'ruang.nama_ruang',
             'rak.nama_rak',
             'no_box',
-            'dpa.keterangan'
+            'dpa.keterangan',
+            'filename'
         ],
     ]) ?>
 
