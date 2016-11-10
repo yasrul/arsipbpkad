@@ -64,21 +64,21 @@ class ArsipInaktifController extends Controller
      */
     public function actionCreate()
     {
-        $dest = \Yii::getAlias('@app/fileupload');
+        $dest = Yii::getAlias('@app/fileupload');
         $model = new ArsipInaktif();
 
         if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
-            $model->filename = UploadedFile::getInstance($model, 'filename');
+            $upload = UploadedFile::getInstance($model, 'filename');
+            if ($upload !== null) $model->filename = $model->id.'_'.$upload->name;
             if ($model->save()) {
-                if ($model->filename !== NULL) {
-                    $model->filename->saveAs($dest.'/'.$model->filename->name);
+                if ($upload !== NULL) {
+                    $upload->saveAs($dest.'/'.$model->id.'_'.$upload->name);
                 }
                 return $this->redirect(['view', 'id' => $model->id]);
             } 
         }
-        return $this->render('create', ['model' => $model]);
-        
+        return $this->render('create', ['model' => $model]);      
     }
 
     /**
@@ -90,14 +90,20 @@ class ArsipInaktifController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $dest = Yii::getAlias('@app/fileupload');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            $upload = UploadedFile::getInstance($model, 'filename');
+            if ($upload !== NULL) $model->filename = $model->id.'_'.$upload->name;
+            if ($model->save()) {
+                if ($upload !== null) {
+                    $upload->saveAs($dest.'/'.$model->id.'_'.$upload->name);
+                }
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        return $this->render('update', ['model' => $model]);
     }
 
     /**

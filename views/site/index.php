@@ -30,6 +30,11 @@ $this->title = 'Arsip BPKAD Provinsi NTB';
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pager'=>[
+            'firstPageLabel'=>'First',
+            'lastPageLabel'=>'Last',
+            'maxButtonCount'=>10
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
