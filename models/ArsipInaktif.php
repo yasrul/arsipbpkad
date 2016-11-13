@@ -5,6 +5,10 @@ namespace app\models;
 use Yii;
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\web\UploadedFile;
+
+//Yii::$app->params['uploadPath'] = Yii::$app->basePath . '/fileupload/';
+//Yii::$app->params['uploadUrl'] = Yii::$app->urlManager->baseUrl . '/fileupload/';
 
 /**
  * This is the model class for table "arsip_inaktif".
@@ -21,9 +25,13 @@ use yii\helpers\Html;
  * @property string $no_box
  * @property string $kd_dpa
  * @property string $filename
+ * @property string $source_file
  */
 class ArsipInaktif extends \yii\db\ActiveRecord
 {
+    public $fileup;
+    
+
     /**
      * @inheritdoc
      */
@@ -44,7 +52,8 @@ class ArsipInaktif extends \yii\db\ActiveRecord
             [['uraian'], 'string', 'max' => 255],
             [['kurun_waktu'], 'string', 'max' => 50],
             [['no_box'], 'string', 'max' => 6],
-            [['filename'], 'file','extensions' => ['jpg','jpeg','png','pdf','doc','docx'],
+            [['filename','source_file'], 'safe'],
+            [['fileup'], 'file','extensions' => ['jpg','jpeg','png','pdf','zip','rar'],
                 'maxSize' => 1024*1024,
                 'skipOnEmpty'=>TRUE
             ]
@@ -69,7 +78,9 @@ class ArsipInaktif extends \yii\db\ActiveRecord
             'kd_rak' => 'Rak',
             'no_box' => 'No Box',
             'kd_dpa' => 'DPA',
-            'filename' => 'Filename',
+            'filename' => Yii::t('app','Filename'),
+            'source_file' => Yii::t('app','Pathname'),
+            'fileup' => Yii::t('app','Upload File'),
         ];
     }
     
@@ -105,5 +116,43 @@ class ArsipInaktif extends \yii\db\ActiveRecord
     
     public function getDpa() {
         return $this->hasOne(DpaRef::className(), ['kode'=>'kd_dpa']);
+    }
+    
+    public function getPathFile() {
+        return isset($this->source_file) ? Yii::getAlias('@app/fileupload/').$this->source_file : NULL;
+    }
+    
+    public function getUrlFile() {
+        return isset($this->source_file) ? Yii::$app->params['uploadUrl'].$this->source_file : NULL;
+    }
+
+    public function uploadFile() {
+        $fileup = UploadedFile::getInstance($this, 'fileup');
+        
+        if (empty($fileup)) {
+            return FALSE;
+        }
+        $this->filename = $fileup->name;
+        $ext = end((explode(".", $fileup->name)));
+        $this->source_file = Yii::$app->security->generateRandomString(10).".{$ext}";
+        
+        return $fileup;
+    }
+    
+    public function deleteFile() {
+        $file = $this->getPathFile();
+        
+        if(empty($file) || !file_exists($file)) {
+            return FALSE;
+        }
+        
+        if(!unlink($file)) {
+            return FALSE;
+        }
+        
+        $this->filename = null;
+        $this->source_file = NULL;
+        
+        return true;
     }
 }

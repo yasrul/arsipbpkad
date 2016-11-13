@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
+use kartik\file\FileInput;
 use app\models\KodeMasalah;
 use app\models\UnitPemilik;
 use app\models\UnitPengolah;
@@ -20,7 +21,6 @@ use yii\helpers\Url;
 <div class="arsip-inaktif-form">
 
     <?php $form = ActiveForm::begin([
-        'enableAjaxValidation' => false,
         'options' => ['enctype' => 'multipart/form-data']
     ]); ?>
 
@@ -68,7 +68,17 @@ use yii\helpers\Url;
         'pluginOptions'=>['allowClear'=>true, 'width'=>'300px']
     ]) ?>
     
-    <?= $form->field($model, 'filename')->fileInput() ?>
+    <?= $form->field($model, 'fileup')->widget(FileInput::className(), [
+        'options'=>['accept'=>'image/*'],
+        'pluginOptions'=>[
+            'allowedFileExtensions'=>['jpg','jpeg','png','pdf','zip','rar'], 
+            'showUpload'=>FALSE,
+            'showCaption'=>TRUE,
+            'showRemove'=>true
+        ]
+    ]) ?>
+    
+    
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

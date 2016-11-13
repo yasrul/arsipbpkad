@@ -64,16 +64,16 @@ class ArsipInaktifController extends Controller
      */
     public function actionCreate()
     {
-        $dest = Yii::getAlias('@app/fileupload');
+        //$dest = Yii::getAlias('@app/fileupload');
         $model = new ArsipInaktif();
 
-        if (Yii::$app->request->isPost) {
-            $model->load(Yii::$app->request->post());
-            $upload = UploadedFile::getInstance($model, 'filename');
-            if ($upload !== null) $model->filename = $model->id.'_'.$upload->name;
+        if ($model->load(Yii::$app->request->post())) {
+            $upload = $model->uploadFile();
+            
             if ($model->save()) {
                 if ($upload !== NULL) {
-                    $upload->saveAs($dest.'/'.$model->id.'_'.$upload->name);
+                    $path = $model->getPathFile();
+                    $upload->saveAs($path);
                 }
                 return $this->redirect(['view', 'id' => $model->id]);
             } 
@@ -90,15 +90,22 @@ class ArsipInaktifController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $dest = Yii::getAlias('@app/fileupload');
+        
+        $oldPathFile = $model->getPathFile();
+        $oldFilename = $model->filename;
+        $oldSrcFile = $model->source_file;
 
-        if (Yii::$app->request->isPost) {
-            $model->load(Yii::$app->request->post());
-            $upload = UploadedFile::getInstance($model, 'filename');
-            if ($upload !== NULL) $model->filename = $model->id.'_'.$upload->name;
+        if ($model->load(Yii::$app->request->post())) {
+            $upload = $model->uploadFile();
+            
+            if ($upload === FALSE) {
+                $model->filename = $oldFilename;
+                $model->source_file = $oldSrcFile;
+            }
             if ($model->save()) {
-                if ($upload !== null) {
-                    $upload->saveAs($dest.'/'.$model->id.'_'.$upload->name);
+                if ($upload !== false && unlink($oldPathFile)) {
+                    $path = $model->getPathFile();
+                    $upload->saveAs($path);
                 }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -114,7 +121,13 @@ class ArsipInaktifController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+                
+        if ($model->delete()) {
+            if(!$model->deleteFile()) {
+                Yii::$app->session->setFlash('error', 'Error deleting file');
+            }
+        }        
 
         return $this->redirect(['index']);
     }
