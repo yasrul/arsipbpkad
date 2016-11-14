@@ -67,6 +67,11 @@ use yii\helpers\Url;
         'options' => ['placeholder'=>'[ Pilih DPA ]'],
         'pluginOptions'=>['allowClear'=>true, 'width'=>'300px']
     ]) ?>
+        
+    <?php if (! $model->isNewRecord) {
+        echo '<p><b>Filename : </b>';
+        echo Html::a($model->filename, ['download','id'=>$model->id]).'</p>';
+    } ?>
     
     <?= $form->field($model, 'fileup')->widget(FileInput::className(), [
         'options'=>['accept'=>'image/*'],

@@ -131,6 +131,7 @@ class ArsipInaktifController extends Controller
 
         return $this->redirect(['index']);
     }
+   
 
     /**
      * Finds the ArsipInaktif model based on its primary key value.
@@ -154,5 +155,14 @@ class ArsipInaktifController extends Controller
                 ->all();
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         return ['raks'=>$raks];
+    }
+    
+    public function actionDownload($id) {
+        $download = ArsipInaktif::findOne($id);
+        $path = Yii::getAlias('@app').'/fileupload/'.$download->source_file;
+        
+        if(file_exists($path)) {
+            return Yii::$app->response->sendFile($path);
+        }
     }
 }

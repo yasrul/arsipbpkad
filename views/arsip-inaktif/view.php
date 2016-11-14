@@ -42,7 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'rak.nama_rak',
             'no_box',
             'dpa.keterangan',
-            'filename'
+            [
+                'attribute'=>'filename',
+                'format'=>'raw',
+                'value'=>Html::a($model->filename, ['download','id'=>$model->id])
+            ]
         ],
     ]) ?>
 
