@@ -103,7 +103,10 @@ class ArsipInaktifController extends Controller
                 $model->source_file = $oldSrcFile;
             }
             if ($model->save()) {
-                if ($upload && unlink($oldPathFile)) {
+                if ($upload !== FALSE) {
+                    if ($oldPathFile !== NULL && file_exists($oldPathFile)) {
+                        unlink($oldPathFile);
+                    }
                     $path = $model->getPathFile();
                     $upload->saveAs($path);
                 }

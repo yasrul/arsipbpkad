@@ -119,11 +119,11 @@ class ArsipInaktif extends \yii\db\ActiveRecord
     }
     
     public function getPathFile() {
-        return isset($this->source_file) ? Yii::getAlias('@app/fileupload/').$this->source_file : NULL;
+        return isset($this->source_file) ? Yii::getAlias('@app/fileupload/').$this->source_file : null;
     }
     
     public function getUrlFile() {
-        return isset($this->source_file) ? Yii::$app->params['uploadUrl'].$this->source_file : NULL;
+        return isset($this->source_file) ? Yii::$app->params['uploadUrl'].$this->source_file : null;
     }
 
     public function uploadFile() {
