@@ -71,7 +71,7 @@ class ArsipInaktifController extends Controller
             $upload = $model->uploadFile();
             
             if ($model->save()) {
-                if ($upload !== NULL) {
+                if ($upload) {
                     $path = $model->getPathFile();
                     $upload->saveAs($path);
                 }
@@ -103,7 +103,7 @@ class ArsipInaktifController extends Controller
                 $model->source_file = $oldSrcFile;
             }
             if ($model->save()) {
-                if ($upload !== false && unlink($oldPathFile)) {
+                if ($upload && unlink($oldPathFile)) {
                     $path = $model->getPathFile();
                     $upload->saveAs($path);
                 }

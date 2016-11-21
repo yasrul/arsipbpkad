@@ -74,7 +74,7 @@ use yii\helpers\Url;
     } ?>
     
     <?= $form->field($model, 'fileup')->widget(FileInput::className(), [
-        'options'=>['accept'=>'image/*'],
+        'options'=>['accept'=>'*/*'],
         'pluginOptions'=>[
             'allowedFileExtensions'=>['jpg','jpeg','png','pdf','zip','rar'], 
             'showUpload'=>FALSE,

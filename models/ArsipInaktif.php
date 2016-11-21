@@ -129,12 +129,12 @@ class ArsipInaktif extends \yii\db\ActiveRecord
     public function uploadFile() {
         $fileup = UploadedFile::getInstance($this, 'fileup');
         
-        if (empty($fileup)) {
+        if (!isset($fileup)) {
             return FALSE;
         }
         $this->filename = $fileup->name;
         $ext = end((explode(".", $fileup->name)));
-        $this->source_file = Yii::$app->security->generateRandomString(10).".{$ext}";
+        $this->source_file = $this->id.".{$ext}";
         
         return $fileup;
     }

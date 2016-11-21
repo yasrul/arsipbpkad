@@ -49,7 +49,7 @@ class ArsipInaktifSearch extends ArsipInaktif
      */
     public function search($params)
     {
-        $query = ArsipInaktif::find()->joinWith(['pemilik','pengolah','rak','dpa']);
+        $query = ArsipInaktif::find()->orderBy('id Desc')->joinWith(['pemilik','pengolah','rak','dpa']);
 
         // add conditions that should always apply here
 
